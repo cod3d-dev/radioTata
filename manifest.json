@@ -7,7 +7,7 @@
   "short_name" : "RadioTata",
   "description" : "La app de audio que hará flipar a tu abuela",
   "orientation" : "portrait",
-  "background_color": "#000000",
+  "background_color": "#FFB575ff",
   "theme_color": "#D34D35ff",
   "generated" : "true",
     "icons": [
@@ -50,7 +50,7 @@
         "src": "app/icons/icon-512x512.png",
         "sizes": "512x512",
         "type": "image/png"
-      }
+      },
       {
         "src": "app/icons/maskable_icon_x384.png",
         "sizes": "384x384",
