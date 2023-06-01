@@ -3,38 +3,41 @@ const playBtn = document.querySelector('#play');
 const prevBtn = document.querySelector('#prev');
 const nextBtn = document.querySelector('#next');
 const audio = document.querySelector('#audio');
-const progress = document.querySelector('.progress-bar');
-const progressContainer = document.querySelector('.progress-container');
-const title = document.querySelector('#title');
 const cover = document.querySelector('#cover');
 
-// Audios
-const songs = ['rock', 'tambores', 'indie', 'metal'];
+// Cover inicial de la app
+
+(function() {
+  setTimeout(function() {
+    document.getElementById('splash-screen').remove();
+  }, 1000);
+})();
+
+
+
+// Array con los nombres de las canciones
+const songs = ['rock', 'tambores', 'metal'];
 
 let songIndex = 0;
 
+// Crear listener para cada boton de seleccion de cancion y le asigno la funcion loadSong
 const selectButtons = document.querySelectorAll('.select-button');
-
 
 selectButtons.forEach(button => {
   button.addEventListener('click', () => {
-    songIndex = button.getAttribute('audioIndex'); // Retrieve the value of the audioIndex attribute
-    console.log(songIndex); // Log the value of the audioIndex variable to the console
+    songIndex = button.getAttribute('audioIndex'); 
+    loadSong(songs[songIndex]);
   });
 });
 
 
-
-// Cargar info de la cancion del DOM
-loadSong(songs[songIndex]);
+// Cargar la primera cancion
+loadSong(songs[0]);
 
 // Actualizar detalles de la cancion
 function loadSong(song) {
-  console.log("Cancion " + song);
-  title.innerText = song;
   audio.src = `audio/${song}.mp3`;
   cover.src = `images/${song}.png`;
-  console.log("Cover " + cover.src);
 }
 
 // Funciones para reproducir y pausar
@@ -44,7 +47,6 @@ function playSong() {
     playBtn.querySelector('i.fas').classList.add('fa-pause');
 
     audio.play();
-
   }
 
 function pauseSong() {
@@ -79,24 +81,9 @@ function nextSong() {
   playSong();
 }
 
-function updateProgress(e) {
-  const { duration, currentTime } = e.srcElement;
-  const progressPercent = (currentTime / duration) * 100;
-
-  progress.style.width = `${progressPercent}%`;
-}
-
-function setProgress(e) {
-  const width = this.clientWidth;
-  const clickX = e.offsetX;
-  const duration = audio.duration;
-
-  audio.currentTime = (clickX / width) * duration;
-}
 
 
-
-// Eventos
+// Crear listener para el boton de play/pause
 playBtn.addEventListener('click', () => {
   const isPlaying = audioContainer.classList.contains('play');
 
@@ -107,12 +94,6 @@ playBtn.addEventListener('click', () => {
   }
 });
 
-// Cambiar cancion
+// Listener para los botones de siguiente y anterior
 prevBtn.addEventListener('click', prevSong);
 nextBtn.addEventListener('click', nextSong);
-
-audio.addEventListener('timeupdate', updateProgress);
-
-progressContainer.addEventListener('click', setProgress);
-
-audio.addEventListener('ended', nextSong);
