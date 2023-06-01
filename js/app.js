@@ -16,14 +16,6 @@ const nextBtn = document.querySelector('#next');
 const audio = document.querySelector('#audio');
 const cover = document.querySelector('#cover');
 
-// Cover inicial de la app
-
-(function() {
-  setTimeout(function() {
-    document.getElementById('splash-screen').remove();
-  }, 1000);
-})();
-
 
 
 // Array con los nombres de las canciones
@@ -36,7 +28,7 @@ const selectButtons = document.querySelectorAll('.select-button');
 
 selectButtons.forEach(button => {
   button.addEventListener('click', () => {
-    songIndex = button.getAttribute('audioIndex'); 
+    songIndex = button.getAttribute('audioIndex');
     loadSong(songs[songIndex]);
   });
 });
