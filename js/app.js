@@ -50,7 +50,9 @@ let songIndex = 0;
 
 // Cargar la primera cancion
 function loadFirstAudio() {
-  loadSong(songs[0]);
+  console.log("canciones " + songs);
+  console.log("playlist " + playlist);
+
 }
 
 
@@ -77,11 +79,11 @@ function loadSong(song) {
 
 // Funciones para reproducir, pausar, adelantar cancion
 function playSong() {
-  console.log('audio', audio);
-    audioContainer.classList.add('play');
-    playBtn.querySelector('i.fas').classList.remove('fa-play');
-    playBtn.querySelector('i.fas').classList.add('fa-pause');    
-    audio.play();
+    audio.src = 'audio/'+ playlist[songIndex].id + '.mp3';
+    audio.play()
+      .then(_ => updateMetadata())
+      .catch(error => console.log(error));
+    
   }
 
 function pauseSong() {
@@ -133,6 +135,37 @@ function rewindAudio() {
     audio.currentTime -= 10;
   }
   
+}
+
+// let playlist = [{}];
+// 
+
+
+function updatePositionState() {
+  if ('setPositionState' in navigator.mediaSession) {
+    console.log('Updating position state...');
+    navigator.mediaSession.setPositionState({
+      duration: audio.duration,
+      playbackRate: audio.playbackRate,
+      position: audio.currentTime
+    });
+  }
+}
+
+
+function updateMetadata() {
+
+  console.log('Playing ' + playlist[songIndex] + ' track...');
+  navigator.mediaSession.metadata = new MediaMetadata({
+    title: playlist[songIndex].title,
+    artist: playlist[songIndex].artist,
+    album: playlist[songIndex].album,
+    artwork: playlist[songIndex].artwork
+  });
+  console.log('Navigator', navigator.mediaSession.metadata);
+
+  // Media is loaded, set the duration.
+  updatePositionState();
 }
 
 
@@ -276,3 +309,15 @@ function saveAudioData(audio, currentTime) {
       };
     };
   }
+
+  navigator.mediaSession.setActionHandler('previoustrack', function() {
+    console.log('> User clicked "Previous Track" icon.');
+    songIndex = (songIndex - 1 + playlist.length) % playlist.length;
+    playSong();
+  });
+  
+  navigator.mediaSession.setActionHandler('nexttrack', function() {
+    console.log('> User clicked "Next Track" icon.');
+    songIndex = (songIndex + 1) % playlist.length;
+    playSong();
+  });

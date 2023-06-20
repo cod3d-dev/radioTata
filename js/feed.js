@@ -5,8 +5,8 @@ var carouselIndicators = document.querySelector('#carousel-indicators');
 // Cargo de la base de datos un json con los datos de los audios
 var url = 'https://radiotata-46ac2-default-rtdb.europe-west1.firebasedatabase.app/audios.json';
 var networkDataReceived = false;
-
-
+var playlist = [];
+var sizes = [96, 128, 192, 256, 384, 512];
 
 
 function delay(ms) {
@@ -24,9 +24,11 @@ fetch(url)
   .then(function(data) {
     networkDataReceived = true;
     var audioArray = [];
+    var artwork = [];
     for (var key in data) {
       audioArray.push(data[key]);
     }
+    console.log('Data complete', data);
     return delay(2600).then(function() {
       updateAudioSlides(audioArray, loadFirstAudio);
     });
@@ -44,7 +46,23 @@ function deleteAudioSlides() {
 
 
 function addAudioSlide(data, i) {
+  
+  var artwork = [];
+  for (var j = 0; j < sizes.length; j++) {
+    artwork[j] = {
+      src: './artwork/' + sizes[j] + 'x' + sizes[j] + '/' + data.id + '.png',
+      sizes: sizes[j] + "x" + sizes[j],
+      type: 'image/png'
+    };
+  }
+  data.artwork = artwork;
+  
+  
   songs.push(data.id);
+  playlist.push(data);
+  console.log('Playlist', playlist);  
+  
+
   var carouselItem = document.createElement('div');
   if (i === 0) {
     carouselItem.className = 'carousel-item h-100 feed active';
