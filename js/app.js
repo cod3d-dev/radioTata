@@ -143,7 +143,6 @@ function rewindAudio() {
 
 function updatePositionState() {
   if ('setPositionState' in navigator.mediaSession) {
-    console.log('Updating position state...');
     navigator.mediaSession.setPositionState({
       duration: audio.duration,
       playbackRate: audio.playbackRate,
@@ -162,9 +161,8 @@ function updateMetadata() {
     album: playlist[songIndex].album,
     artwork: playlist[songIndex].artwork
   });
-  console.log('Navigator', navigator.mediaSession.metadata);
 
-  // Media is loaded, set the duration.
+  // Actualizar la posición de la canción.
   updatePositionState();
 }
 
@@ -204,8 +202,8 @@ x2Btn.addEventListener('click', () => {
   toogleSpeed();
 });
 
-// initialize the variable to 0
 
+// Cambiar la canción cuando se pasa el carrusel
 var carouselPrev = document.querySelector('.carousel-control-prev');
 var carouselNext = document.querySelector('.carousel-control-next');
 
@@ -244,6 +242,7 @@ function updateProgress(e) {
 
 
 
+// Listener para actualizar el progreso al reproducir canción
 audio.addEventListener('timeupdate', updateProgress);
 
 
@@ -295,6 +294,7 @@ function getAudioData(audio, callback) {
 // Callback para saltar a la posicion extraida de audioDB
 function loadAudioCurrentTime(currentTime) {
   audio.currentTime = currentTime;
+  console.log("Reproduciendo desde posición "+ currentTime);
 }
 
 
@@ -308,7 +308,6 @@ function saveAudioData(audio, currentTime) {
     };
 
     request.onsuccess = function(event) {
-      console.log('audioDB abierto exiotosamente');
       var db = event.target.result;
 
       // Actualizo la posicion de la cancion
@@ -338,5 +337,20 @@ function saveAudioData(audio, currentTime) {
   navigator.mediaSession.setActionHandler('nexttrack', function() {
     console.log('> User clicked "Next Track" icon.');
     songIndex = (songIndex + 1) % playlist.length;
+    playSong();
+  });
+
+  navigator.mediaSession.setActionHandler('pause', function() {
+    console.log('> User clicked "Pause" icon.');
+    pauseSong();
+  });
+
+  navigator.mediaSession.setActionHandler('stop', function() {
+    console.log('> User clicked "Pause" icon.');
+    pauseSong();
+  });
+
+  navigator.mediaSession.setActionHandler('play', function() {
+    console.log('> User clicked "Play" icon.');
     playSong();
   });

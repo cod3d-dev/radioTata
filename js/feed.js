@@ -28,7 +28,6 @@ fetch(url)
     for (var key in data) {
       audioArray.push(data[key]);
     }
-    console.log('Data complete', data);
     return delay(2600).then(function() {
       updateAudioSlides(audioArray, loadFirstAudio);
     });
@@ -60,7 +59,6 @@ function addAudioSlide(data, i) {
   
   songs.push(data.id);
   playlist.push(data);
-  console.log('Playlist', playlist);  
   
 
   var carouselItem = document.createElement('div');
@@ -117,4 +115,4 @@ function updateAudioSlides(data) {
 
 
 
-fetch('http://127.0.0.1:5500/audio/am003.mp3').then((data => console.log('Episodio descargado...')))
+//fetch('http://127.0.0.1:5500/audio/am003.mp3').then((data => console.log('Episodio descargado...')))
