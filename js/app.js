@@ -36,6 +36,7 @@ const audioContainer = document.querySelector('.audio-container');
 const playBtn = document.querySelector('#play');
 const rBtn = document.querySelector('#prev');
 const ffBtn = document.querySelector('#next');
+const x2Btn = document.querySelector('#X2');
 const audio = document.querySelector('#audio');
 const cover = document.querySelector('#cover');
 const positionDisplay = document.querySelector('#positionDisplay');
@@ -52,7 +53,6 @@ let songIndex = 0;
 function loadFirstAudio() {
   console.log("canciones " + songs);
   console.log("playlist " + playlist);
-
 }
 
 
@@ -70,22 +70,22 @@ function loadSong(song) {
       cache.add(`audio/${song}.mp3`);
       cache.add(`images/${song}.png`);
     });
-
-    
-
-  var audioData = getAudioData(song, loadAudioCurrentTime);
-
 }
 
+
 // Funciones para reproducir, pausar, adelantar cancion
+
 function playSong() {
     audio.src = 'audio/'+ playlist[songIndex].id + '.mp3';
+    audioContainer.classList.add('play');
     audio.play()
-      .then(_ => updateMetadata())
+      .then(function() {
+        updateMetadata();
+      })
       .catch(error => console.log(error));
-    
   }
 
+  
 function pauseSong() {
   audioContainer.classList.remove('play');
   playBtn.querySelector('i.fas').classList.add('fa-play');
@@ -181,9 +181,28 @@ playBtn.addEventListener('click', () => {
   }
 });
 
+// Cambiar la velocidad de reproduccion
+
+function toogleSpeed() {
+  if (audio.playbackRate === 1) {
+    audio.playbackRate = 2;
+    x2Btn.classList.add('X2speed');
+  } else {
+    audio.playbackRate = 1;
+    x2Btn.classList.remove('X2speed');
+  }
+}
+
+
+
 // Listener para los botones de siguiente y anterior
 ffBtn.addEventListener('click', fastForwardAudio);
 rBtn.addEventListener('click', rewindAudio);
+
+// Listener para el boton 2X
+x2Btn.addEventListener('click', () => {
+  toogleSpeed();
+});
 
 // initialize the variable to 0
 

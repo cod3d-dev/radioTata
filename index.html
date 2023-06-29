@@ -65,7 +65,10 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet" />
-
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&family=Source+Code+Pro&display=swap" rel="stylesheet">
+  
   <link rel="stylesheet" type="text/css" href="fonts/css/fontawesome-all.min.css" />
   <link rel="manifest" href="manifest.json" data-pwa-version="set_in_manifest_and_pwa_js" />
 
@@ -79,8 +82,8 @@
 
 <body>
   <div class="app">
-    <div class="d-flex px-2 header">
-      <div>
+    <div class="d-flex px-2 header justify-content-between">
+      <div class="pt-2">
         <h1 class="mb-0">RadioTata</h1>
         <p>La app de radio que hará flipar a tu abuela!</p>
       </div>
@@ -123,7 +126,7 @@
     </main>
 
     <div class="box fixed-bottom mediacontrols flex text-center">
-      <div class="audio-container d-flex justify-content-center align-items-center">
+      <div id="audio-container" class="audio-container d-flex justify-content-center align-items-center">
         <audio id="audio"></audio>
         <div class="img-container">
           <img id="cover" />
@@ -139,8 +142,9 @@
             <i class="fas fa-forward"></i>
           </button>
         </div>
-        <div class="position ">
+        <div class="position d-flex justify-content-between align-items-center">
           <span id="positionDisplay" class="h3">00:00:00</span>
+          <button id="X2" class="btn-2x">2X</i></button>
         </div>
       </div>
     </div>

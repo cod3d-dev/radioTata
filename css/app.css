@@ -10,6 +10,7 @@
 
 body {
   padding-top: env(safe-area-inset-top);
+  background-color: var(--light-yellow);
 }
 
 
@@ -242,3 +243,33 @@ h1 {
     animation-duration: 3s;
 }
 
+.position {
+  font-family: 'Source Code Pro', monospace;
+}
+
+
+.btn-2x {
+  display:block;
+  font-family: 'Lato', sans-serif;
+  font-weight: bolder;
+  height: 50px;
+  width: 50px;
+  border-radius: 50%;
+  background-color: var(--light-yellow);
+  color: var(--nice-orange);
+  border-style: none;
+}
+
+.btn-2x:hover {
+  background-color: var(--hard-red);
+  color: var(--light-yellow);
+}
+
+.X2speed {
+  background-color: var(--hard-red);
+  color: var(--light-yellow);
+}
+
+.play .action-btn-big {
+  color: var(--hard-red);
+}
