@@ -8,6 +8,11 @@
   --burnt-umber: #843526ff;
 }
 
+body {
+  padding-top: env(safe-area-inset-top);
+}
+
+
 .bg-light-yellow {
   background-color: var(--light-yellow);
 }
